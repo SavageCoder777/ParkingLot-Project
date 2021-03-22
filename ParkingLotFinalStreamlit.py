@@ -13,13 +13,13 @@ InformationTank = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0}
 MoneyDue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 AccountInfo = []
 Revenue = 0
-stfile = "d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json"
+stfile = "Streamlit.json"
 
 st.write("# Smallest Parking Lot")
 st.write("## There are ten [10] spots in total.")
 
 def opening_statements_READ():
-    infofileread = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
+    infofileread = open("Streamlit.json", "r")
     for action in infofileread:
         infofileaction = json.loads(action)
         try:
@@ -50,7 +50,7 @@ def check_spot_reservation_and_free():
     whichsinfo = st.text_input("Which spots revervations/frees do you want to see? - ")  
     Reserve = 0
     Freed = 0
-    infofileread2 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
+    infofileread2 = open("Streamlit.json", "r")
     for action2 in infofileread2:
         infofileaction2 = json.loads(action2)
         if infofileaction2["Spot"] == whichsinfo:
