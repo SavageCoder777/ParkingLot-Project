@@ -13,18 +13,18 @@ InformationTank = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0}
 MoneyDue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 AccountInfo = []
 Revenue = 0
-stfile = "Streamlit.json"
+stfile = "d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json"
 
 st.write("# Smallest Parking Lot")
 st.write("## There are ten [10] spots in total.")
 
 def opening_statements_READ():
-    infofileread = open("Streamlit.json", "r")
+    infofileread = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
     for action in infofileread:
         infofileaction = json.loads(action)
         try:
             try:
-                if infofileaction["Reserve"] == "Reserve":
+                if infofileaction["Reserve or Free"] == "Reserve":
                     InformationTank[int(infofileaction["Spot"])] = infofileaction["Information"]
                     ParkingLotlist[int(infofileaction["Spot"]) - 1] = 1
                     global Revenue
@@ -32,7 +32,7 @@ def opening_statements_READ():
             except:
                 continue
             try:
-                if infofileaction["Leave"] == "Leave":
+                if infofileaction["Reserve or Free"] == "Leave":
                     InformationTank[int(infofileaction["Spot"])] = 0
                     ParkingLotlist[int(infofileaction["Spot"]) - 1] = 0
                     try:
@@ -50,21 +50,15 @@ def check_spot_reservation_and_free():
     whichsinfo = st.text_input("Which spots revervations/frees do you want to see? - ")  
     Reserve = 0
     Freed = 0
-    infofileread2 = open("Streamlit.json", "r")
+    infofileread2 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
     for action2 in infofileread2:
         infofileaction2 = json.loads(action2)
-        if infofileaction2["Spot"] == whichsinfo:
-            try:
-                if infofileaction2["Reserve"] == "Reserve":
-                    Reserve+=1
-            except:
-                continue
-            try:
-                if infofileaction2["Leave"] == "Leave":
-                    Leave+=1
-            except:
-                continue
-    st.write("          Spot num. " + whichsinfo + " has been RESERVED " + str(Reserve) + " time/s and has been FREED " + str(Freed) + " time/s.")
+        if infofileaction2["Spot"] == int(whichsinfo):
+            if infofileaction2["Reserve or Free"] == "Reserve":
+                Reserve+=1
+            if infofileaction2["Reserve or Free"] == "Free":
+                Freed+=1
+    st.write("Spot num. " + whichsinfo + " has been RESERVED " + str(Reserve) + " time/s and has been FREED " + str(Freed) + " time/s.")
     infofileread2.close()
 
 # def make_pie_chart(rof, rof2):
@@ -127,7 +121,7 @@ def add_reservation(name, licenseplate, car, color, whichspot):
     timestring = time.strftime("%m/%d/%Y %H:%M:%S")
     reservationinfo = {
         "Time": timestring,
-        "Reserve": "Reserve",
+        "Reserve or Free": "Reserve",
         "Spot": whichspot,
         "Information": {        
             "Name": name,
@@ -159,7 +153,6 @@ def reserve_spot_INSERT():
         color = st.text_input("Car Color")
         if st.button("Add Reservation", key = "Add Reservation"):
             add_reservation(name, licenseplate, car, color, int(whichspot))
-
         ld = load_data()
         st.write(ld)
         InformationTank[int(whichspot)] = (name, licenseplate, car, color)
@@ -184,6 +177,7 @@ def remove_reservation(cardtype, cardname, cardcvv, cardexpiry, whichspot2):
     leaveinfo = {
         "Time": timestring,
         "Spot": whichspot2,
+        "Reserve or Free": "Free",
         "Information": {
             "Card Type": cardtype,
             "Card Name": cardname,
@@ -202,30 +196,32 @@ def delete_spot_info_DELETE():
     if ParkingLotlist[retrieval] == 0:
         st.write("I'm sorry, but I'm afraid that there are no car/s in that spot.")
     else:
-        coc = st.selectbox("Will You Pay with Cash or Card?", ["Cash", "Card"], key = "coc")
+        coc = st.selectbox("Will You Pay with Cash or Card?", ["", "Cash", "Card"], key = "coc")
         if "Cash" in coc:
-            st.write("Thank you for parking at The Smallest Parking Lot!")
+            if st.button("Retrieve Car", key = "Retrieve Car via Cash"):
+                remove_reservation("N/A", "N/A", "N/A", "N/A", int(carretrieval))
+                st.write("Thank you for parking at The Smallest Parking Lot!  Hope to see you soon!")
         elif "Card" in coc:
             cardtype = st.text_input("Card Type")
             cardname = st.text_input("Card Name")
             cardcvv = st.text_input("CVV")
             cardexpiry = st.text_input("Card Expiry")
-            if st.button("Retrieve Car", key = "Retrieve Car"):
+            if st.button("Retrieve Car", key = "Retrieve Car via Card"):
                 remove_reservation(cardtype, cardname, cardcvv, cardexpiry, int(carretrieval))
+                st.write("Thank you for parking at The Smallest Parking Lot!  Hope to see you soon!")
         ld2 = load_data()
         st.write(ld2)
+        ParkingLotlist[int(carretrieval)] = 0
         InformationTank[int(carretrieval)] = 0
-        st.write("Thank you for using The Smallest Parking Lot! Hope to see you soon!")
 
 opening_statements_READ()
-questionnaire = True
-uoa = st.selectbox("Are you a user or a customer?", ["", "User", "Admin"], key = "uoa")
+uoa = st.selectbox("Are you a user or an admin?", ["", "User", "Admin"], key = "uoa")
 if "User" in uoa:
     whatuseroption = st.selectbox("What do you want to do?", ["", "Reserve a Spot", "Retrieve a Car", "Show Spots"], key = "whatuseroption")
     if "Reserve a Spot" in whatuseroption:
         reserve_spot_INSERT()
 
-    elif "Retrieve Car" in whatuseroption:
+    elif "Retrieve a Car" in whatuseroption:
         delete_spot_info_DELETE()
 
     elif "Show Spots" in whatuseroption:
@@ -254,7 +250,7 @@ if "Admin" in uoa:
                 emptyLotslist.append((check + 1))
         st.write("          There are " + str(emptyLots) + " empty lots. They are the spots that follow: " + str(emptyLotslist))
 
-    elif "Check # of Times a Spot has been Reserved & Freed" in whatadminoption:
+    elif "Check Num. of Times a Spot has been Reserved and Freed" in whatadminoption:
         check_spot_reservation_and_free()
 
     elif "See Chart Detailing Spot Preferences" in whatadminoption:
