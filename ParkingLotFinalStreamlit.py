@@ -14,24 +14,24 @@ InformationTank = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0}
 MoneyDue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 AccountInfo = []
 Revenue = 0
-stfile = "Streamlit.json"
+stfile = "d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json"
 
 st.write("# Smallest Parking Lot")
 st.write("## There are ten [10] spots in total.")
 
 def opening_statements_READ():
-    infofileread = open("Streamlit.json", "r")
+    infofileread = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
     for action in infofileread:
         infofileaction = json.loads(action)
         try:
             if infofileaction["Reserve or Free"] == "Reserve":
                 InformationTank[int(infofileaction["Spot"])] = infofileaction["Information"]
                 ParkingLotlist[int(infofileaction["Spot"]) - 1] = 1
-                global Revenue
-                Revenue+=10
             if infofileaction["Reserve or Free"] == "Free":
                 InformationTank[int(infofileaction["Spot"])] = 0
                 ParkingLotlist[int(infofileaction["Spot"]) - 1] = 0
+                global Revenue
+                Revenue+=10
                 try:
                     AccountInfo.append(infofileaction["Information"])
                 except:
@@ -42,18 +42,21 @@ def opening_statements_READ():
 
 def check_spot_reservation_and_free():
     whichsinfo = st.text_input("Which spots revervations/frees do you want to see? - ")  
-    Reserve = 0
-    Freed = 0
-    infofileread2 = open("Streamlit.json", "r")
-    for action2 in infofileread2:
-        infofileaction2 = json.loads(action2)
-        if infofileaction2["Spot"] == int(whichsinfo):
-            if infofileaction2["Reserve or Free"] == "Reserve":
-                Reserve+=1
-            if infofileaction2["Reserve or Free"] == "Free":
-                Freed+=1
-    st.write("Spot num. " + whichsinfo + " has been RESERVED " + str(Reserve) + " time/s and has been FREED " + str(Freed) + " time/s.")
-    infofileread2.close()
+    if int(whichsinfo) <= 10 and int(whichsinfo) >= 1:
+        Reserve = 0
+        Freed = 0
+        infofileread2 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
+        for action2 in infofileread2:
+            infofileaction2 = json.loads(action2)
+            if infofileaction2["Spot"] == int(whichsinfo):
+                if infofileaction2["Reserve or Free"] == "Reserve":
+                    Reserve+=1
+                if infofileaction2["Reserve or Free"] == "Free":
+                    Freed+=1
+        st.write("Spot num. " + whichsinfo + " has been RESERVED " + str(Reserve) + " time/s and has been FREED " + str(Freed) + " time/s.")
+        infofileread2.close()
+    else:
+        st.write("Please Choose a Spot Between 1 [One] and 10 [Ten]")
 
 def make_pie_chart(rof):
     Leave = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -61,7 +64,7 @@ def make_pie_chart(rof):
     colorchoices = ["darkgray", "gray", "lightgray", "lightblue", "lightgreen", "skyblue", "aqua", "red", "lightpink", "yellowgreen", "b", "g", "r", "c", "m", "y", "k", "tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple", "tab:brown", "tab:pink", "tab:gray", "tab:olive", "tab:cyan"]
     colors = []
     spots = []
-    infofileread3 = open("Streamlit.json", "r")
+    infofileread3 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
     try:
         for action3 in infofileread3:
             infofileaction3 = json.loads(action3)
@@ -80,8 +83,7 @@ def make_pie_chart(rof):
         return
     for unnecessary in range(len(Leave)):
         if Leave[unnecessary] != 0:
-            Leave2_0.append(Leave[unnecessary])
-    # plt.pie(Leave2_0, labels = spots, colors = colors, startangle = 90, shadow = True, radius = 1.2, autopct = '%1.1f%%') 
+            Leave2_0.append(Leave[unnecessary]) 
     fig, ax = plt.subplots()
     ax.pie(Leave2_0, labels = spots)
     st.pyplot(fig)
@@ -141,37 +143,43 @@ def load_data():
 def reserve_spot_INSERT(uoa, whatuseroption):
     whichspot = st.text_input("Which spot do you want?")
     place = (int(whichspot) - 1)
-    if ParkingLotlist[place] == 0:
-        name = st.text_input("Name")
-        licenseplate = st.text_input("License Plate")
-        car = st.text_input("Car Type")
-        color = st.text_input("Car Color")
-        if st.button("Add Reservation", key = "Add Reservation"):
-            add_reservation(name, licenseplate, car, color, int(whichspot))
-            name = ""
-            licenseplate = ""
-            car = ""
-            color = ""
-            whichspot = ""
-            whatuseroption = ""
-            uoa = ""
-            st.write("Reservation Successfully Added!")
-        ParkingLotlist[int(whichspot)] = 1
-        InformationTank[int(whichspot)] = (name, licenseplate, car, color)
+    if int(whichspot) <= 10 and int(whichspot) >= 1:
+        if ParkingLotlist[place] == 0:
+            name = st.text_input("Name")
+            licenseplate = st.text_input("License Plate")
+            car = st.text_input("Car Type")
+            color = st.text_input("Car Color")
+            if st.button("Add Reservation", key = "Add Reservation"):
+                add_reservation(name, licenseplate, car, color, int(whichspot))
+                name = ""
+                licenseplate = ""
+                car = ""
+                color = ""
+                whichspot = ""
+                whatuseroption = ""
+                uoa = ""
+                st.write("Reservation Successfully Added!")
+            ParkingLotlist[int(whichspot)] = 1
+            InformationTank[int(whichspot)] = (name, licenseplate, car, color)
+        else:
+            st.write("I'm sorry, but that spot is full. Please try again.")
     else:
-        st.write("I'm sorry, but that spot is full. Please try again.")
+        st.write("Please Choose a Spot Between 1 [One] and 10 [Ten]")
 
 def check_spot_info_READ():
     questioninputinfo = st.text_input("Which spot do you want to check in on?")
-    checkinfo = int(questioninputinfo)
-    if ParkingLotlist[(checkinfo - 1)] == 0:
-        st.write("I'm sorry, but I'm afraid that there are no car/s in that spot.")
+    if int(questioninputinfo) <= 10 and int(questioninputinfo) >= 1:
+        checkinfo = int(questioninputinfo)
+        if ParkingLotlist[(checkinfo - 1)] == 0:
+            st.write("I'm sorry, but I'm afraid that there are no car/s in that spot.")
+        else:
+            st.write("Name: " + InformationTank[checkinfo]["Name"])
+            st.write("License Plate: " + InformationTank[checkinfo]["License Plate"])
+            st.write("Car Type: " + InformationTank[checkinfo]["Car Type"])
+            st.write("Color: " + InformationTank[checkinfo]["Car Color"])
+            st.write("Money Due: $10 [Ten Dollars]")
     else:
-        st.write("Name: " + InformationTank[checkinfo]["Name"])
-        st.write("License Plate: " + InformationTank[checkinfo]["License Plate"])
-        st.write("Car Type: " + InformationTank[checkinfo]["Car Type"])
-        st.write("Color: " + InformationTank[checkinfo]["Car Color"])
-        st.write("Money Due: $10 [Ten Dollars]")
+        st.write("Please Choose a Spot Between 1 [One] and 10 [Ten]")
 
 def remove_reservation(cardtype, cardname, cardcvv, cardexpiry, whichspot2):
     time = datetime.datetime.now()
@@ -194,35 +202,38 @@ def remove_reservation(cardtype, cardname, cardcvv, cardexpiry, whichspot2):
 
 def delete_spot_info_DELETE(uoa, whatuseroption):
     carretrieval = st.text_input("What spot is your car in?")
-    retrieval = int(carretrieval) - 1
-    if ParkingLotlist[retrieval] == 0:
-        st.write("I'm sorry, but I'm afraid that there are no car/s in that spot.")
+    if int(carretrieval) <= 10 and int(carretrieval) >= 1:
+        retrieval = int(carretrieval) - 1
+        if ParkingLotlist[retrieval] == 0:
+            st.write("I'm sorry, but I'm afraid that there are no car/s in that spot.")
+        else:
+            coc = st.selectbox("Will You Pay with Cash or Card?", ["", "Cash", "Card"], key = "coc")
+            if "Cash" in coc:
+                if st.button("Retrieve Car", key = "Retrieve Car via Cash"):
+                    remove_reservation("N/A", "N/A", "N/A", "N/A", int(carretrieval))
+                    st.write("Thank you for parking at The Smallest Parking Lot!  Hope to see you soon!")
+                    time.sleep(0.5)
+                    whatuseroption = ""
+                    uoa = ""
+            elif "Card" in coc:
+                cardtype = st.text_input("Card Type")
+                cardname = st.text_input("Card Name")
+                cardcvv = st.text_input("CVV")
+                cardexpiry = st.text_input("Card Expiry")
+                if st.button("Retrieve Car", key = "Retrieve Car via Card"):
+                    remove_reservation(cardtype, cardname, cardcvv, cardexpiry, int(carretrieval))
+                    st.write("Thank you for parking at The Smallest Parking Lot!  Hope to see you soon!")
+                    time.sleep(0.5)
+                    cardtype = ""
+                    cardname = ""
+                    cardcvv = ""
+                    cardexpiry = ""
+                    whatuseroption = ""
+                    uoa = ""
+            ParkingLotlist[int(carretrieval)] = 0
+            InformationTank[int(carretrieval)] = 0
     else:
-        coc = st.selectbox("Will You Pay with Cash or Card?", ["", "Cash", "Card"], key = "coc")
-        if "Cash" in coc:
-            if st.button("Retrieve Car", key = "Retrieve Car via Cash"):
-                remove_reservation("N/A", "N/A", "N/A", "N/A", int(carretrieval))
-                st.write("Thank you for parking at The Smallest Parking Lot!  Hope to see you soon!")
-                time.sleep(0.5)
-                whatuseroption = ""
-                uoa = ""
-        elif "Card" in coc:
-            cardtype = st.text_input("Card Type")
-            cardname = st.text_input("Card Name")
-            cardcvv = st.text_input("CVV")
-            cardexpiry = st.text_input("Card Expiry")
-            if st.button("Retrieve Car", key = "Retrieve Car via Card"):
-                remove_reservation(cardtype, cardname, cardcvv, cardexpiry, int(carretrieval))
-                st.write("Thank you for parking at The Smallest Parking Lot!  Hope to see you soon!")
-                time.sleep(0.5)
-                cardtype = ""
-                cardname = ""
-                cardcvv = ""
-                cardexpiry = ""
-                whatuseroption = ""
-                uoa = ""
-        ParkingLotlist[int(carretrieval)] = 0
-        InformationTank[int(carretrieval)] = 0
+        st.write("Please Choose a Spot Between 1 [One] and 10 [Ten]")
 
 opening_statements_READ()
 uoa = st.selectbox("Are you a user or an admin?", ["", "User", "Admin"], key = "uoa")
