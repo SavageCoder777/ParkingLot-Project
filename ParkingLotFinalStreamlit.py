@@ -14,13 +14,13 @@ InformationTank = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0}
 MoneyDue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 AccountInfo = []
 Revenue = 0
-stfile = "d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json"
+stfile = "Streamlit.json"
 
 st.write("# Smallest Parking Lot")
 st.write("## There are ten [10] spots in total.")
 
 def opening_statements_READ():
-    infofileread = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
+    infofileread = open("Streamlit.json", "r")
     for action in infofileread:
         infofileaction = json.loads(action)
         try:
@@ -45,7 +45,7 @@ def check_spot_reservation_and_free():
     if int(whichsinfo) <= 10 and int(whichsinfo) >= 1:
         Reserve = 0
         Freed = 0
-        infofileread2 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
+        infofileread2 = open("Streamlit.json", "r")
         for action2 in infofileread2:
             infofileaction2 = json.loads(action2)
             if infofileaction2["Spot"] == int(whichsinfo):
@@ -64,7 +64,7 @@ def make_pie_chart(rof):
     colorchoices = ["darkgray", "gray", "lightgray", "lightblue", "lightgreen", "skyblue", "aqua", "red", "lightpink", "yellowgreen", "b", "g", "r", "c", "m", "y", "k", "tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple", "tab:brown", "tab:pink", "tab:gray", "tab:olive", "tab:cyan"]
     colors = []
     spots = []
-    infofileread3 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
+    infofileread3 = open("Streamlit.json", "r")
     try:
         for action3 in infofileread3:
             infofileaction3 = json.loads(action3)
