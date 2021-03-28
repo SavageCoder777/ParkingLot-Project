@@ -1,5 +1,15 @@
-{"Time": "03/27/2021 22:07:25", "Reserve or Free": "Reserve", "Spot": 7, "Information": {"Name": "Hello Hi", "License Plate": "PVC777", "Car Type": "Lamborghini Veneno", "Car Color": "Black"}, "Money": 10}
-{"Time": "03/27/2021 22:08:17", "Reserve or Free": "Reserve", "Spot": 2, "Information": {"Name": "Lifés Good", "License Plate": "LK222", "Car Type": "Toyota Sienna", "Car Color": "Silver Gray"}, "Money": 10}
-{"Time": "03/27/2021 22:09:35", "Reserve or Free": "Reserve", "Spot": 8, "Information": {"Name": "Sleep Real", "License Plate": "SVC888", "Car Type": "Toyota Mirai", "Car Color": "Red"}, "Money": 10}
+{"Time": "03/27/2021 22:07:25", "Reserve or Free": "Reserve", "Spot": 7, "Information": {"Name": "Hello", "License Plate": "PVC777", "Car Type": "Lamborghini Veneno", "Car Color": "Black"}, "Money": 10}
+{"Time": "03/27/2021 22:08:17", "Reserve or Free": "Reserve", "Spot": 2, "Information": {"Name": "Hu ho", "License Plate": "LK222", "Car Type": "Toyota Sienna", "Car Color": "Silver Gray"}, "Money": 10}
+{"Time": "03/27/2021 22:09:35", "Reserve or Free": "Reserve", "Spot": 8, "Information": {"Name": "Rabadadamdam", "License Plate": "SVC888", "Car Type": "Toyota Mirai", "Car Color": "Red"}, "Money": 10}
 {"Time": "03/27/2021 22:26:21", "Spot": 2, "Reserve or Free": "Free", "Information": {"Card Type": "N/A", "Card Name": "N/A", "Card CVV": "N/A", "Card Expiry": "N/A"}, "Money": 0}
-{"Time": "03/27/2021 22:28:01", "Spot": 8, "Reserve or Free": "Free", "Information": {"Card Type": "Credit Card", "Card Name": "SleRea", "Card CVV": "888", "Card Expiry": "04/20"}, "Money": 0}
+{"Time": "03/27/2021 22:28:01", "Spot": 8, "Reserve or Free": "Free", "Information": {"Card Type": "Credit Card", "Card Name": "Raba", "Card CVV": "888", "Card Expiry": "04/20"}, "Money": 0}
+{"Time": "03/28/2021 08:26:49", "Reserve or Free": "Reserve", "Spot": 4, "Information": {"Name": "Sup Sip", "License Plate": "VCP444", "Car Type": "Hot Wheels Racer", "Car Color": "Blue Black"}, "Money": 10}
+{"Time": "03/28/2021 08:29:14", "Spot": 4, "Reserve or Free": "Free", "Information": {"Card Type": "N/A", "Card Name": "N/A", "Card CVV": "N/A", "Card Expiry": "N/A"}, "Money": 0}
+{"Time": "03/28/2021 08:31:55", "Spot": 7, "Reserve or Free": "Free", "Information": {"Card Type": "Debit Card", "Card Name": "Hello", "Card CVV": "777", "Card Expiry": "04/02"}, "Money": 0}
+{"Time": "03/28/2021 08:41:12", "Reserve or Free": "Reserve", "Spot": 1, "Information": {"Name": "Hi Ha", "License Plate": "AR111", "Car Type": "Future Flyers", "Car Color": "Yellow"}, "Money": 10}
+{"Time": "03/28/2021 08:42:50", "Spot": 1, "Reserve or Free": "Free", "Information": {"Card Type": "Credit Card", "Card Name": "Hiha", "Card CVV": "111", "Card Expiry": "01/28"}, "Money": 0}
+{"Time": "03/28/2021 09:02:45", "Reserve or Free": "Reserve", "Spot": 3, "Information": {"Name": "OnePlus Two", "License Plate": "OPT333", "Car Type": "iPhone Upgrade", "Car Color": "Electric"}, "Money": 10}
+{"Time": "03/28/2021 09:07:25", "Spot": 3, "Reserve or Free": "Free", "Information": {"Card Type": "N/A", "Card Name": "N/A", "Card CVV": "N/A", "Card Expiry": "N/A"}, "Money": 0}
+{"Time": "03/28/2021 09:12:51", "Reserve or Free": "Reserve", "Spot": 5, "Information": {"Name": "Rumba Catumba", "License Plate": "RC555", "Car Type": "Range Calavar", "Car Color": "Spicy Red"}, "Money": 10}
+{"Time": "03/28/2021 09:16:37", "Spot": 5, "Reserve or Free": "Free", "Information": {"Card Type": "Debit Card", "Card Name": "RanCal", "Card CVV": "555", "Card Expiry": "01/40"}, "Money": 0}
+{"Time": "03/28/2021 10:48:38", "Reserve or Free": "Reserve", "Spot": 2, "Information": {"Name": "shucks", "License Plate": "rt45783C", "Car Type": "Subaru", "Car Color": "brown"}, "Money": 10}
