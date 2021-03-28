@@ -1,1 +1,5 @@
-
+{"Time": "03/27/2021 22:07:25", "Reserve or Free": "Reserve", "Spot": 7, "Information": {"Name": "Hello Hi", "License Plate": "PVC777", "Car Type": "Lamborghini Veneno", "Car Color": "Black"}, "Money": 10}
+{"Time": "03/27/2021 22:08:17", "Reserve or Free": "Reserve", "Spot": 2, "Information": {"Name": "Lifés Good", "License Plate": "LK222", "Car Type": "Toyota Sienna", "Car Color": "Silver Gray"}, "Money": 10}
+{"Time": "03/27/2021 22:09:35", "Reserve or Free": "Reserve", "Spot": 8, "Information": {"Name": "Sleep Real", "License Plate": "SVC888", "Car Type": "Toyota Mirai", "Car Color": "Red"}, "Money": 10}
+{"Time": "03/27/2021 22:26:21", "Spot": 2, "Reserve or Free": "Free", "Information": {"Card Type": "N/A", "Card Name": "N/A", "Card CVV": "N/A", "Card Expiry": "N/A"}, "Money": 0}
+{"Time": "03/27/2021 22:28:01", "Spot": 8, "Reserve or Free": "Free", "Information": {"Card Type": "Credit Card", "Card Name": "SleRea", "Card CVV": "888", "Card Expiry": "04/20"}, "Money": 0}
