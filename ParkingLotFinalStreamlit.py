@@ -14,13 +14,18 @@ InformationTank = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0}
 MoneyDue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 AccountInfo = []
 Revenue = 0
-stfile = "Streamlit.json"
+stfile = "d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json"
 
 st.write("# Smallest Parking Lot")
 st.write("## There are ten [10] spots in total.")
 
+apiurl = "abdd9cce-f791-4875-be4e-dd35a0ec12f9"
+headers = {"Api-Key": apiurl, "Content-Type": "application/json"}
+storename = "streamlitcloud-json"
+storeurl = f"https://json.psty.io/api_v1/stores/{storename}"
+
 def opening_statements_READ():
-    infofileread = open("Streamlit.json", "r")
+    infofileread = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
     for action in infofileread:
         infofileaction = json.loads(action)
         try:
@@ -45,7 +50,7 @@ def check_spot_reservation_and_free():
     if int(whichsinfo) <= 10 and int(whichsinfo) >= 1:
         Reserve = 0
         Freed = 0
-        infofileread2 = open("Streamlit.json", "r")
+        infofileread2 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
         for action2 in infofileread2:
             infofileaction2 = json.loads(action2)
             if infofileaction2["Spot"] == int(whichsinfo):
@@ -64,7 +69,7 @@ def make_pie_chart(rof):
     colorchoices = ["darkgray", "gray", "lightgray", "lightblue", "lightgreen", "skyblue", "aqua", "red", "lightpink", "yellowgreen", "b", "g", "r", "c", "m", "y", "k", "tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple", "tab:brown", "tab:pink", "tab:gray", "tab:olive", "tab:cyan"]
     colors = []
     spots = []
-    infofileread3 = open("Streamlit.json", "r")
+    infofileread3 = open("d:\\Prahlad.V.C\\Documents\\Python\\Python Coding\\Other\\ParkingLot\\Streamlit.json", "r")
     try:
         for action3 in infofileread3:
             infofileaction3 = json.loads(action3)
@@ -250,36 +255,39 @@ if "User" in uoa:
         make_spot_graph()
 
 if "Admin" in uoa:
-    st.write("### Our current revenue is $" + str(Revenue) + " ... make it better.")
-    whatadminoption = st.selectbox("What do you want to do?", ["", "Check Spot Information", "Check Full Spots", "Check Empty Spots", "Check Num. of Times a Spot has been Reserved and Freed", "See Chart Detailing Spot Preferences", "See Complete Spot Information"], key = "whatadminoption")
-    if "Check Spot Information" in whatadminoption:
-        check_spot_info_READ()
+    username = st.text_input("## Enter Username", type = "default")
+    password = st.text_input("## Enter Password", type = "password")
+    if username == "admin" and password == "pass":
+        st.write("### Our current revenue is $" + str(Revenue) + " ... make it better.")
+        whatadminoption = st.selectbox("What do you want to do?", ["", "Check Spot Information", "Check Full Spots", "Check Empty Spots", "Check Num. of Times a Spot has been Reserved and Freed", "See Chart Detailing Spot Preferences", "See Complete Spot Information"], key = "whatadminoption")
+        if "Check Spot Information" in whatadminoption:
+            check_spot_info_READ()
 
-    elif "Check Full Spots" in whatadminoption:
-        fullLots = 0
-        fullLotslist = []
-        for check in range(len(ParkingLotlist)):
-            if ParkingLotlist[check] == 1:
-                fullLots += 1
-                fullLotslist.append((check + 1))
-        st.write("          There are " + str(fullLots) + " full lots. They are the spots that follow: " + str(fullLotslist))
+        elif "Check Full Spots" in whatadminoption:
+            fullLots = 0
+            fullLotslist = []
+            for check in range(len(ParkingLotlist)):
+                if ParkingLotlist[check] == 1:
+                    fullLots += 1
+                    fullLotslist.append((check + 1))
+            st.write("          There are " + str(fullLots) + " full lots. They are the spots that follow: " + str(fullLotslist))
 
-    elif "Check Empty Spots" in whatadminoption:
-        emptyLots = 0
-        emptyLotslist = []
-        for check in range(len(ParkingLotlist)):
-            if ParkingLotlist[check] == 0:
-                emptyLots += 1
-                emptyLotslist.append((check + 1))
-        st.write("          There are " + str(emptyLots) + " empty lots. They are the spots that follow: " + str(emptyLotslist))
+        elif "Check Empty Spots" in whatadminoption:
+            emptyLots = 0
+            emptyLotslist = []
+            for check in range(len(ParkingLotlist)):
+                if ParkingLotlist[check] == 0:
+                    emptyLots += 1
+                    emptyLotslist.append((check + 1))
+            st.write("          There are " + str(emptyLots) + " empty lots. They are the spots that follow: " + str(emptyLotslist))
 
-    elif "Check Num. of Times a Spot has been Reserved and Freed" in whatadminoption:
-        check_spot_reservation_and_free()
+        elif "Check Num. of Times a Spot has been Reserved and Freed" in whatadminoption:
+            check_spot_reservation_and_free()
 
-    elif "See Chart Detailing Spot Preferences" in whatadminoption:
-        make_graphs()
-        # st.write("Function Not Available Now.")
-    
-    elif "See Complete Spot Information" in whatadminoption:
-        ld = load_data()
-        st.write(ld)
+        elif "See Chart Detailing Spot Preferences" in whatadminoption:
+            make_graphs()
+            # st.write("Function Not Available Now.")
+        
+        elif "See Complete Spot Information" in whatadminoption:
+            ld = load_data()
+            st.write(ld)
