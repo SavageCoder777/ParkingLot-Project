@@ -102,6 +102,7 @@ def make_graphs():
         make_pie_chart("Free")
 
 def make_spot_graph():
+    st.write("Legend ~" + "\n" + "Yellow - Reserved" + "\n" + "Purple - Free" + "\n" + "\n" + "(Side Note: Please disregard the 0th spot. It does not count)")
     ParkingLotlistduplicate = ParkingLotlist
     ParkingLotlistduplicate.append(0)
     for _ in range(len(ParkingLotlistduplicate) - 1):
@@ -238,7 +239,7 @@ def delete_spot_info_DELETE(uoa, whatuseroption):
 opening_statements_READ()
 uoa = st.selectbox("Are you a user or an admin?", ["", "User", "Admin"], key = "uoa")
 if "User" in uoa:
-    st.write("### Our fee is only $10 [Ten Dollars]! You're free to come!")
+    st.write("### Our fee is only $10 [Ten Dollars]! You're free to come! Choose spots from 1 [One] to 10 [Ten].")
     whatuseroption = st.selectbox("What do you want to do?", ["", "Reserve a Spot", "Retrieve a Car", "Show Spots"], key = "whatuseroption")
     if "Reserve a Spot" in whatuseroption:
         reserve_spot_INSERT(uoa, whatuseroption)
@@ -285,3 +286,5 @@ if "Admin" in uoa:
         
         elif "See Complete Spot Information" in whatadminoption:
             st.write(store)
+    else:
+        st.write("Wrong Username and/or Password.")
