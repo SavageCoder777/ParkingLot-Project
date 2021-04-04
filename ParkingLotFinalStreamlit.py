@@ -287,6 +287,6 @@ if "Admin" in uoa:
         elif "See Complete Spot Information" in whatadminoption:
             st.write(store)
     elif (username == "" and password == "") or (username != "" and password == "") or (username == "" and password != ""):
-        continue
+        st.write("")
     else:
         st.write("Wrong Username and/or Password.")
