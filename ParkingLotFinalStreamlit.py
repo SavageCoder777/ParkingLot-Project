@@ -239,7 +239,7 @@ def delete_spot_info_DELETE(uoa, whatuseroption):
 opening_statements_READ()
 uoa = st.selectbox("Are you a user or an admin?", ["", "User", "Admin"], key = "uoa")
 if "User" in uoa:
-    st.write("### Our fee is only $10 [Ten Dollars]! You're free to come! Choose spots from 1 [One] to 10 [Ten].")
+    st.write("### Our fee is only $10 [Ten Dollars]! You're free to come!" + "\n" + "\n" + "#### Choose spots from 1 [One] to 10 [Ten].")
     whatuseroption = st.selectbox("What do you want to do?", ["", "Reserve a Spot", "Retrieve a Car", "Show Spots"], key = "whatuseroption")
     if "Reserve a Spot" in whatuseroption:
         reserve_spot_INSERT(uoa, whatuseroption)
