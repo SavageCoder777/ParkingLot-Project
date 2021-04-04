@@ -102,7 +102,7 @@ def make_graphs():
         make_pie_chart("Free")
 
 def make_spot_graph():
-    st.write("Legend ~" + "\n" + "Yellow - Reserved" + "\n" + "Purple - Free" + "\n" + "\n" + "(Side Note: Please disregard the 0th spot. It does not count)")
+    st.write("Legend ~" + "\n" + "\n" + "Yellow - Reserved" + "\n" + "\n" + "Purple - Free" + "\n" + "\n" + "(Side Note: Please disregard the 0th spot. It does not count)")
     ParkingLotlistduplicate = ParkingLotlist
     ParkingLotlistduplicate.append(0)
     for _ in range(len(ParkingLotlistduplicate) - 1):
@@ -286,5 +286,7 @@ if "Admin" in uoa:
         
         elif "See Complete Spot Information" in whatadminoption:
             st.write(store)
+    elif (username == "" and password == "") or (username != "" and password == "") or (username == "" and password != ""):
+        continue
     else:
         st.write("Wrong Username and/or Password.")
