@@ -6,6 +6,7 @@ import random
 import pandas as pd
 import os
 import time
+import requests
 
 # python -m streamlit run ToDo.py
 
@@ -14,7 +15,6 @@ InformationTank = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0}
 MoneyDue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 AccountInfo = []
 Revenue = 0
-stfile = "Streamlit.json"
 
 st.write("# Smallest Parking Lot")
 st.write("## There are ten [10] spots in total.")
@@ -24,10 +24,15 @@ headers = {"Api-Key": apiurl, "Content-Type": "application/json"}
 storename = "streamlitcloud-json"
 storeurl = f"https://json.psty.io/api_v1/stores/{storename}"
 
+def load_data():
+    res = requests.get(storeurl, headers=headers)
+    listdata = res.json()["data"]
+    return listdata
+store = pd.DataFrame(load_data())
+
 def opening_statements_READ():
-    infofileread = open("Streamlit.json", "r")
-    for action in infofileread:
-        infofileaction = json.loads(action)
+    infofileread = load_data()
+    for infofileaction in infofileread:
         try:
             if infofileaction["Reserve or Free"] == "Reserve":
                 InformationTank[int(infofileaction["Spot"])] = infofileaction["Information"]
@@ -43,23 +48,20 @@ def opening_statements_READ():
                     continue
         except:
             st.write("You are our first customer. Welcome to the Grand Opening of THE SMALLEST PARKING LOT.")
-    infofileread.close()
 
 def check_spot_reservation_and_free():
     whichsinfo = st.text_input("Which spots revervations/frees do you want to see? - ")  
     if int(whichsinfo) <= 10 and int(whichsinfo) >= 1:
         Reserve = 0
         Freed = 0
-        infofileread2 = open("Streamlit.json", "r")
-        for action2 in infofileread2:
-            infofileaction2 = json.loads(action2)
+        infofileread2 = load_data()
+        for infofileaction2 in infofileread2:
             if infofileaction2["Spot"] == int(whichsinfo):
                 if infofileaction2["Reserve or Free"] == "Reserve":
                     Reserve+=1
                 if infofileaction2["Reserve or Free"] == "Free":
                     Freed+=1
         st.write("Spot num. " + whichsinfo + " has been RESERVED " + str(Reserve) + " time/s and has been FREED " + str(Freed) + " time/s.")
-        infofileread2.close()
     else:
         st.write("Please Choose a Spot Between 1 [One] and 10 [Ten]")
 
@@ -69,10 +71,9 @@ def make_pie_chart(rof):
     colorchoices = ["darkgray", "gray", "lightgray", "lightblue", "lightgreen", "skyblue", "aqua", "red", "lightpink", "yellowgreen", "b", "g", "r", "c", "m", "y", "k", "tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple", "tab:brown", "tab:pink", "tab:gray", "tab:olive", "tab:cyan"]
     colors = []
     spots = []
-    infofileread3 = open("Streamlit.json", "r")
+    infofileread3 = load_data()
     try:
-        for action3 in infofileread3:
-            infofileaction3 = json.loads(action3)
+        for infofileaction3 in infofileread3:
             if infofileaction3["Reserve or Free"] == rof:
                 whichcolor = random.randint(0, 21)
                 Leave[int(infofileaction3["Spot"]) - 1]+=1
@@ -92,7 +93,6 @@ def make_pie_chart(rof):
     fig, ax = plt.subplots()
     ax.pie(Leave2_0, labels = spots)
     st.pyplot(fig)
-    infofileread3.close()
 
 def make_graphs():
     questioninputgraph = st.selectbox("Do You want to See a Chart which Shows the Reserved or Freed Spots?", ["", "Reserved", "Freed"], key = "Which Pie")
@@ -132,18 +132,12 @@ def add_reservation(name, licenseplate, car, color, whichspot):
             "Car Type": car,
             "Car Color": color
             },
-        "Money": 10
+        "Money": 10,
+        "Enter": "\n"
     }
-    with open(stfile, "a") as appendstfile:
-        json.dump(reservationinfo, appendstfile)
-        appendstfile.write("\n")
-
-def load_data():
-    if os.path.exists(stfile):
-        return pd.read_json(stfile, lines=True)
-    else:
-        with open(stfile):
-            pass
+    data = load_data()
+    data.append(reservationinfo)
+    res = requests.put(storeurl, headers=headers, data=json.dumps(data))
 
 def reserve_spot_INSERT(uoa, whatuseroption):
     whichspot = st.text_input("Which spot do you want?")
@@ -199,11 +193,12 @@ def remove_reservation(cardtype, cardname, cardcvv, cardexpiry, whichspot2):
             "Card CVV": cardcvv,
             "Card Expiry": cardexpiry
         },
-        "Money": 0
+        "Money": 0,
+        "Enter": "\n"
     }
-    with open(stfile, "a") as appendstfile:
-        json.dump(leaveinfo, appendstfile)
-        appendstfile.write("\n")
+    data = load_data()
+    data.append(leaveinfo)
+    res = requests.put(storeurl, headers=headers, data=json.dumps(data))
 
 def delete_spot_info_DELETE(uoa, whatuseroption):
     carretrieval = st.text_input("What spot is your car in?")
@@ -289,5 +284,4 @@ if "Admin" in uoa:
             # st.write("Function Not Available Now.")
         
         elif "See Complete Spot Information" in whatadminoption:
-            ld = load_data()
-            st.write(ld)
+            st.write(store)
